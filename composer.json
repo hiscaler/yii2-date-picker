@@ -1,5 +1,5 @@
 {
-    "name": "yadjet/datePicker",
+    "name": "yadjet/date-picker",
     "description": "Date picker for Yii2",
     "keywords": ["yii2", "date picker", "datetime picker"],
     "type": "project",
