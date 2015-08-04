@@ -3,9 +3,9 @@
 namespace yadjet\datePicker\my97;
 
 use Yii;
-use yii\widgets\InputWidget;
-use yii\helpers\Json;
 use yii\helpers\Html;
+use yii\helpers\Json;
+use yii\widgets\InputWidget;
 
 /**
  * My97DatePicker 控件类
@@ -18,7 +18,12 @@ class DatePicker extends InputWidget
     public $form;
     public $htmlOptions = [];
     public $jsOptions = [];
-    public $pickerType = 'date'; // 时间选择方式
+
+    /**
+     * 时间选择方式
+     * @var string
+     */
+    public $pickerType = 'date';
 
     public function init()
     {
@@ -34,7 +39,7 @@ class DatePicker extends InputWidget
                 default :
                     $class = 'date-picker';
             }
-            $this->htmlOptions['class'] = $class;
+            $this->htmlOptions['class'] = "{$class} form-control";
         }
         if (!isset($this->jsOptions['dateFmt'])) {
             $dateFormat = 'yyyy-MM-dd';
@@ -68,8 +73,7 @@ class DatePicker extends InputWidget
         if ($this->hasModel()) {
             return $this->form->field($this->model, $this->attribute)->textInput($this->htmlOptions);
         } else {
-            list($name, $id) = $this->resolveNameID();
-            return Html::textField($name, $this->value, $this->htmlOptions);
+            return Html::textInput($this->name, $this->value, $this->htmlOptions);
         }
     }
 

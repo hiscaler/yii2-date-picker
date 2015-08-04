@@ -12,9 +12,12 @@ use yii\web\AssetBundle;
 class DatePickerAsset extends AssetBundle
 {
 
-    public $sourcePath = '@vendor/yadjet/datePicker/my97/assets';
+    public $sourcePath = '@vendor/yadjet/yii2-date-picker/src/my97/assets';
     public $js = [
         'WdatePicker.js',
+    ];
+    public $depends = [
+        'yii\web\JqueryAsset',
     ];
 
 }
