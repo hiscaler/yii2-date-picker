@@ -36,6 +36,12 @@ class DatePicker extends InputWidget
                 case 'time':
                     $class = 'time-picker';
                     break;
+                case 'year':
+                    $class = 'year-picker';
+                    break;
+                case 'year-month':
+                    $class = 'year-month-picker';
+                    break;
                 default :
                     $class = 'date-picker';
             }
@@ -50,6 +56,12 @@ class DatePicker extends InputWidget
                     break;
                 case 'time':
                     $dateFormat = $timeFormat;
+                    break;
+                case 'year':
+                    $dateFormat = 'yyyy';
+                    break;
+                case 'year-month':
+                    $dateFormat = 'yyyyMM';
                     break;
             }
 
@@ -73,6 +85,7 @@ class DatePicker extends InputWidget
         if ($this->hasModel()) {
             return $this->form->field($this->model, $this->attribute)->textInput($this->htmlOptions);
         } else {
+            $this->htmlOptions += $this->options;
             return Html::textInput($this->name, $this->value, $this->htmlOptions);
         }
     }
