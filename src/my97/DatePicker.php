@@ -95,14 +95,29 @@ class DatePicker extends InputWidget
         $view->registerJs("jQuery(document).on('click', '#{$id}', function() {{$js}});");
         if ($this->hasModel()) {
             if ($this->isTimestamp) {
-                $value = null;
-                if ($this->pickerType == static::PICKER_TYPE_DATE) {
-                    $value = Yii::$app->getFormatter()->asDate($this->model->{$this->attribute});
-                } elseif ($this->pickerType == static::PICKER_TYPE_DATETIME) {
-                    $value = Yii::$app->getFormatter()->asDatetime($this->model->{$this->attribute});
-                }
-
+                $value = $this->model->{$this->attribute};
                 if ($value) {
+                    switch ($this->pickerType) {
+                        case self::PICKER_TYPE_DATETIME:
+                            $value = Yii::$app->getFormatter()->asDatetime($value);
+                            break;
+
+                        case self::PICKER_TYPE_YEAR:
+                            $value = date('Y', $value);
+                            break;
+
+                        case self::PICKER_TYPE_YEAR_MONTH:
+                            $value = date('Y-m', $value);
+                            break;
+
+                        case self::PICKER_TYPE_TIME:
+                            $value = date('H:i:s', $value);
+                            break;
+
+                        default:
+                            $value = Yii::$app->getFormatter()->asDate($value);
+                            break;
+                    }
                     $this->htmlOptions['value'] = $value;
                 }
             }
