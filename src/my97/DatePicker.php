@@ -25,9 +25,11 @@ class DatePicker extends InputWidget
     public $htmlOptions = [];
     public $jsOptions = [];
     public $isTimestamp = true;
+    public $label = null;
 
     /**
      * 时间选择方式
+     *
      * @var string
      */
     public $pickerType;
@@ -90,9 +92,10 @@ class DatePicker extends InputWidget
     {
         $id = $this->options['id'];
         $view = $this->getView();
+        $this->jsOptions['el'] = $id;
         DatePickerAsset::register($view);
         $js = strtr('WdatePicker({options});', ['{options}' => Json::encode($this->jsOptions)]);
-        $view->registerJs("jQuery(document).on('click', '#{$id}', function() {{$js}});");
+        $view->registerJs("jQuery(document).on('click', '#$id', function() {{$js}});");
         if ($this->hasModel()) {
             if ($this->isTimestamp) {
                 $value = $this->model->{$this->attribute};
@@ -122,9 +125,10 @@ class DatePicker extends InputWidget
                 }
             }
 
-            return $this->form->field($this->model, $this->attribute)->textInput($this->htmlOptions);
+            return $this->form->field($this->model, $this->attribute)->textInput($this->htmlOptions)->label($this->label);
         } else {
             $this->htmlOptions += $this->options;
+
             return Html::textInput($this->name, $this->value, $this->htmlOptions);
         }
     }
