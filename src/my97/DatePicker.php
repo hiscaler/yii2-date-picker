@@ -21,7 +21,10 @@ class DatePicker extends InputWidget
     const PICKER_TYPE_YEAR = 'year';
     const PICKER_TYPE_YEAR_MONTH = 'year-month';
 
-    public $form;
+    /**
+     * @var $form yii\widgets\ActiveForm
+     */
+    public $form = null;
     public $htmlOptions = [];
     public $jsOptions = [];
     public $isTimestamp = true;
@@ -34,6 +37,9 @@ class DatePicker extends InputWidget
      */
     public $pickerType;
 
+    /**
+     * @throws \yii\base\InvalidConfigException
+     */
     public function init()
     {
         parent::init();
@@ -46,15 +52,19 @@ class DatePicker extends InputWidget
                 case static::PICKER_TYPE_DATETIME:
                     $class = 'datetime-picker';
                     break;
+
                 case static::PICKER_TYPE_TIME:
                     $class = 'time-picker';
                     break;
+
                 case static::PICKER_TYPE_YEAR:
                     $class = 'year-picker';
                     break;
+
                 case static::PICKER_TYPE_YEAR_MONTH:
                     $class = 'year-month-picker';
                     break;
+
                 default :
                     $class = 'date-picker';
             }
@@ -67,12 +77,15 @@ class DatePicker extends InputWidget
                 case static::PICKER_TYPE_DATETIME:
                     $dateFormat .= ' ' . $timeFormat;
                     break;
+
                 case static::PICKER_TYPE_TIME:
                     $dateFormat = $timeFormat;
                     break;
+
                 case static::PICKER_TYPE_YEAR:
                     $dateFormat = 'yyyy';
                     break;
+
                 case static::PICKER_TYPE_YEAR_MONTH:
                     $dateFormat = 'yyyyMM';
                     break;
